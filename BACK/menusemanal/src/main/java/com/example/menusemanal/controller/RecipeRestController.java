@@ -27,8 +27,8 @@ public class RecipeRestController {
     @PostMapping("/crear")
     public RecipeDTO crear(@ModelAttribute("receta") RecipeDTO recipe) {
         // Lógica para guardar la receta en la base de datos usando recetaService
-        recipeService.crear(recipe);
-        return recipeService.crear(recipe);
+
+        return null;
     }
 
     @GetMapping("/recipes")

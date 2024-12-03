@@ -8,11 +8,11 @@ import java.util.Map;
 
 public interface RecipeService {
 
-    public RecipeDTO crear(RecipeDTO recipe);
+    RecipeDTO create(RecipeDTO recipeDTO);
 
-    public List<RecipeEntity> getAllRecetas();
+    List<RecipeEntity> getAllRecetas();
 
-    public List<RecipeEntity> getRandomRecetas(int count);
+     List<RecipeEntity> getRandomRecetas(int count);
 
-    public Map<String, Integer> getListaCompra(List<RecipeEntity> recipeEntities);
+     Map<String, Integer> getListaCompra(List<RecipeEntity> recipeEntities);
 }

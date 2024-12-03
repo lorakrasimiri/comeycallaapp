@@ -21,7 +21,7 @@ public class RecipeServiceImpl implements RecipeService {
 
 
     @Override
-    public RecipeDTO crear(RecipeDTO recipeDTO) {
+    public RecipeDTO create(RecipeDTO recipeDTO) {
        /* if(Objects.nonNull(recipe.getIngredients())){
            this.recipeHasIngredientRepository.saveAll(recipe.getIngredients());
         }*/
@@ -30,14 +30,14 @@ public class RecipeServiceImpl implements RecipeService {
 
         RecipeEntity recipeEntity = new RecipeEntity();
         recipeEntity.setId(recipeDTO.getId());
-        recipeEntity.setNombre(recipeDTO.getName());
-        recipeEntity.setDescripcion(recipeDTO.getDescription());
-        recipeEntity.setTiempo(recipeDTO.getTime());
-        recipeEntity.setNacionalidad(recipeDTO.getNationality());
+        recipeEntity.setName(recipeDTO.getName());
+        recipeEntity.setDescription(recipeDTO.getDescription());
+        recipeEntity.setTime(recipeDTO.getTime());
+        recipeEntity.setNationality(recipeDTO.getNationality());
 
         this.recipeRepository.save(recipeEntity);
 
-        return recipeEntity;
+        return null;
 
     }
 
@@ -60,9 +60,9 @@ public class RecipeServiceImpl implements RecipeService {
     public Map<String, Integer> getListaCompra(List<RecipeEntity> recipeEntities) {
         Map<String, Integer> listaCompra = new HashMap<>();
         for (RecipeEntity recipeEntity : recipeEntities) {
-            for (RecipeHasIngredient ingrediente : recipeEntity.getIngredientes()) {
+            for (RecipeHasIngredient ingrediente : recipeEntity.getIngredients()) {
 
-                listaCompra.put(ingrediente.getIngredientEntity().getNombre(), listaCompra.getOrDefault(ingrediente.getIngredientEntity().getNombre(), 0) + Integer.parseInt(ingrediente.getCantidad()));
+                listaCompra.put(ingrediente.getIngredientEntity().getName(), listaCompra.getOrDefault(ingrediente.getIngredientEntity().getName(), 0) + Integer.parseInt(ingrediente.getCantidad()));
             }
         }
         return listaCompra;
