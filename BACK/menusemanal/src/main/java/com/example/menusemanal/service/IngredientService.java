@@ -1,12 +1,15 @@
 package com.example.menusemanal.service;
 
-import com.example.menusemanal.persistance.Ingredient;
+import com.example.menusemanal.controller.dto.IngredientDTO;
+import com.example.menusemanal.persistance.IngredientEntity;
 
 import java.util.List;
 
 public interface IngredientService {
 
-    List<Ingredient> obtenerIngredientes();
+    List<IngredientEntity> obtenerIngredientes();
 
-    Ingredient guardar(Ingredient ingredient);
+    IngredientEntity guardar(IngredientEntity ingredientEntity);
+
+    List<IngredientDTO> getSeasonalIngredients();
 }

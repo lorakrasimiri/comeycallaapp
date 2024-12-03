@@ -12,16 +12,21 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 @Entity
-public class Ingredient {
+public class RecipeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String nombre;
+    private String name;
+    private String description;
+    private int time;
+    private String nationality;
+    private String photoUrl;
 
-    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL)
-    private List<RecipeHasIngredient> recetas;
+
+    @OneToMany(mappedBy = "recipeEntity", cascade = CascadeType.ALL)
+    private List<RecipeHasIngredient> ingredients;
 
 
 }

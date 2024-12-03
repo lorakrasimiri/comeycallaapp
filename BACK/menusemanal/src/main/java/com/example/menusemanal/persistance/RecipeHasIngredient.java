@@ -19,11 +19,11 @@ public class RecipeHasIngredient {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receta_id")
-    private Recipe recipe;
+    private RecipeEntity recipeEntity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ingrediente_id")
-    private Ingredient ingredient;
+    private IngredientEntity ingredientEntity;
 
     private String cantidad;
 

@@ -17,5 +17,5 @@ public class IngredientDTO {
     @Id
     private Integer id;
     private String name;
-    private List<String> season;
+    private List<String> seasons;
 }

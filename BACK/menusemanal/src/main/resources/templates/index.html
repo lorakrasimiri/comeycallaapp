@@ -8,17 +8,17 @@
 </head>
 <body>
 <h1>Recetas</h1>
-<form action="#" th:action="@{/recipes/crear}" th:object="${recipe}" method="post">
+<form action="#" th:action="@{/recipeEntities/crear}" th:object="${recipeEntity}" method="post">
     <input type="text" th:field="*{nombre}" placeholder="Nombre"/>
     <textarea th:field="*{descripcion}" placeholder="Descripción"></textarea>
     <input type="number" th:field="*{tiempo}" placeholder="Tiempo"/>
 
     <h2>Ingredientes</h2>
     <div id="ingredientes">
-        <div th:each="ingredient, stat : *{ingredientes}">
+        <div th:each="ingredientEntity, stat : *{ingredientes}">
             <div>
                 <label>Nombre:</label>
-                <input type="text" th:field="*{ingredientes[__${stat.index}__].nombre}" placeholder="Nombre del ingredient"/>
+                <input type="text" th:field="*{ingredientes[__${stat.index}__].nombre}" placeholder="Nombre del ingredientEntity"/>
             </div>
             <div>
                 <label>Cantidad:</label>
@@ -33,34 +33,34 @@
 </form>
 
 <h2>Menú Semanal</h2>
-<div th:each="recipe : ${recipes}">
-    <p th:text="${recipe.nombre}">Nombre de la recipe</p>
-    <p th:text="${recipe.descripcion}">Descripción de la recipe</p>
+<div th:each="recipeEntity : ${recipeEntities}">
+    <p th:text="${recipeEntity.nombre}">Nombre de la recipeEntity</p>
+    <p th:text="${recipeEntity.descripcion}">Descripción de la recipeEntity</p>
 </div>
 
 <h2>Lista de la Compra</h2>
 <ul>
-    <li th:each="ingredient, cantidad : ${listaCompra}">
-        <span th:text="${ingredient}"></span>: <span th:text="${cantidad}"></span>
+    <li th:each="ingredientEntity, cantidad : ${listaCompra}">
+        <span th:text="${ingredientEntity}"></span>: <span th:text="${cantidad}"></span>
     </li>
 </ul>
 
 <script th:inline="javascript">
     /*<![CDATA[*/
-    var ingredienteIndex = /*[[${recipe.ingredientes != null ? #lists.size(recipe.ingredientes) : 0}]]*/ 0;
+    var ingredienteIndex = /*[[${recipeEntity.ingredientes != null ? #lists.size(recipeEntity.ingredientes) : 0}]]*/ 0;
 
     $(document).ready(function() {
         // Inicializar select2 para la búsqueda de ingredientes
-        $('#ingredient-buscador').select2({
+        $('#ingredientEntity-buscador').select2({
             ajax: {
-                url: '/recipes/ingredientes',
+                url: '/recipeEntities/ingredientes',
                 dataType: 'json',
                 processResults: function(data) {
                     return {
-                        results: data.map(function(ingredient) {
+                        results: data.map(function(ingredientEntity) {
                             return {
-                                id: ingredient.id,
-                                text: ingredient.nombre
+                                id: ingredientEntity.id,
+                                text: ingredientEntity.nombre
                             };
                         })
                     };
@@ -74,7 +74,7 @@
                     newOption: true
                 };
             },
-            placeholder: 'Buscar o agregar un ingredient',
+            placeholder: 'Buscar o agregar un ingredientEntity',
             minimumInputLength: 1
         }).on('select2:select', function(e) {
             var data = e.params.data;
@@ -86,7 +86,7 @@
         var template =
             '<div>' +
             '   <label>Nombre:</label>' +
-            '   <input type="text" name="ingredientes[' + ingredienteIndex + '].nombre" value="' + nombre + '" placeholder="Nombre del ingredient"/>' +
+            '   <input type="text" name="ingredientes[' + ingredienteIndex + '].nombre" value="' + nombre + '" placeholder="Nombre del ingredientEntity"/>' +
             '</div>' +
             '<div>' +
             '   <label>Cantidad:</label>' +
@@ -103,7 +103,7 @@
     /*]]>*/
 </script>
 
-<select id="ingredient-buscador"></select>
+<select id="ingredientEntity-buscador"></select>
 
 </body>
 </html>

@@ -28,41 +28,41 @@ public class RecipeServiceImpl implements RecipeService {
 
 
 
-        Recipe recipe = new Recipe();
-        recipe.setId(recipeDTO.getId());
-        recipe.setNombre(recipeDTO.getName());
-        recipe.setDescripcion(recipeDTO.getDescription());
-        recipe.setTiempo(recipeDTO.getTime());
-        recipe.setNacionalidad(recipeDTO.getNationality());
+        RecipeEntity recipeEntity = new RecipeEntity();
+        recipeEntity.setId(recipeDTO.getId());
+        recipeEntity.setNombre(recipeDTO.getName());
+        recipeEntity.setDescripcion(recipeDTO.getDescription());
+        recipeEntity.setTiempo(recipeDTO.getTime());
+        recipeEntity.setNacionalidad(recipeDTO.getNationality());
 
-        this.recipeRepository.save(recipe);
+        this.recipeRepository.save(recipeEntity);
 
-        return recipe;
+        return recipeEntity;
 
     }
 
     @Override
-    public List<Recipe> getAllRecetas() {
+    public List<RecipeEntity> getAllRecetas() {
         return recipeRepository.findAll();
     }
 
 
     @Override
-    public List<Recipe> getRandomRecetas(int count) {
-        List<Recipe> allRecipes = recipeRepository.findAll();
+    public List<RecipeEntity> getRandomRecetas(int count) {
+        List<RecipeEntity> allRecipeEntities = recipeRepository.findAll();
         Random rand = new Random();
-        return rand.ints(count, 0, allRecipes.size())
-                .mapToObj(allRecipes::get)
+        return rand.ints(count, 0, allRecipeEntities.size())
+                .mapToObj(allRecipeEntities::get)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Map<String, Integer> getListaCompra(List<Recipe> recipes) {
+    public Map<String, Integer> getListaCompra(List<RecipeEntity> recipeEntities) {
         Map<String, Integer> listaCompra = new HashMap<>();
-        for (Recipe recipe : recipes) {
-            for (RecipeHasIngredient ingrediente : recipe.getIngredientes()) {
+        for (RecipeEntity recipeEntity : recipeEntities) {
+            for (RecipeHasIngredient ingrediente : recipeEntity.getIngredientes()) {
 
-                listaCompra.put(ingrediente.getIngredient().getNombre(), listaCompra.getOrDefault(ingrediente.getIngredient().getNombre(), 0) + Integer.parseInt(ingrediente.getCantidad()));
+                listaCompra.put(ingrediente.getIngredientEntity().getNombre(), listaCompra.getOrDefault(ingrediente.getIngredientEntity().getNombre(), 0) + Integer.parseInt(ingrediente.getCantidad()));
             }
         }
         return listaCompra;
