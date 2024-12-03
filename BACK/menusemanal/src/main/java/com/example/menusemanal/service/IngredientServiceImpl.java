@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class IngredientServiceImpl implements IngredientService {
@@ -36,17 +37,23 @@ public class IngredientServiceImpl implements IngredientService {
         return ingredientRepository.save(ingredientEntity);
     }
 
+
     @Override
     public List<IngredientDTO> getSeasonalIngredients() {
-        List<SeasonHasIngredientEntity> listOfSeasonsAndIngredients = this.seasonHasIngredientRepository.getBySeasonId(1);//(LocalDate.now().getMonthValue());
+        List<SeasonHasIngredientEntity> seasonIngredients = seasonHasIngredientRepository.findAllBySeasonId(9);
 
-        List<IngredientEntity> ingredientEntities = listOfSeasonsAndIngredients.stream()
-                .map(season -> this.ingredientRepository.findById(season.getIngredient_id())
-                        .orElseThrow(() -> new IllegalArgumentException("Ingredient not found with id: " + season.getIngredient_id())))
+        List<IngredientEntity> ingredients = seasonIngredients.stream()
+                .map(this::fetchIngredientFromSeasonHasIngredient)
                 .toList();
 
-        return ingredientEntities.stream()
+        return ingredients.stream()
                 .map(ingredientMapper::toDTO)
-                .toList();
+                .collect(Collectors.toList());
     }
+
+    private IngredientEntity fetchIngredientFromSeasonHasIngredient(SeasonHasIngredientEntity seasonIngredient) {
+        return ingredientRepository.findById(seasonIngredient.getIngredientId())
+                .orElseThrow(() -> new IllegalArgumentException("Ingredient not found with id: " + seasonIngredient.getIngredientId()));
+    }
+
 }

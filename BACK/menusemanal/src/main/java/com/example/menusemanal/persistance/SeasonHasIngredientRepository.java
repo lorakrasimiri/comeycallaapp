@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface SeasonHasIngredientRepository extends JpaRepository<SeasonHasIngredientEntity, Integer> {
 
-    List<SeasonHasIngredientEntity> getBySeasonId(Integer seasonId);
+    List<SeasonHasIngredientEntity> findAllBySeasonId(Integer seasonId);
 
-
+    SeasonHasIngredientEntity getByIngredientId(Integer ingredientId);
 }

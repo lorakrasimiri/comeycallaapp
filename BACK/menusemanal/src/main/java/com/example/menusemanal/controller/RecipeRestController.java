@@ -63,7 +63,7 @@ public class RecipeRestController {
     @GetMapping("/seasonal-ingredients")
     @ResponseBody
     public ResponseEntity<List<IngredientDTO>> getSeasonalIngredients() {
-
+       System.out.print("HOLA, MUNDO");
         List<IngredientDTO> ingredients = ingredientService.getSeasonalIngredients();
         return ResponseEntity.ok(ingredients);
     }

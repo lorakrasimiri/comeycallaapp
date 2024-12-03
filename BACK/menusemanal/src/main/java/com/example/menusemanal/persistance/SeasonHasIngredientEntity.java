@@ -17,8 +17,12 @@ public class SeasonHasIngredientEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer season_id;
+    @Column(name = "season_id")
+    private Integer seasonId;
 
-    private Integer ingredient_id;
+    @Getter
+    @Column(name = "ingredient_id")
+    private Integer ingredientId;
+
 
 }

@@ -24,7 +24,7 @@ public class RecipeServiceImpl implements RecipeService {
     public RecipeDTO create(RecipeDTO recipeDTO) {
        /* if(Objects.nonNull(recipe.getIngredients())){
            this.recipeHasIngredientRepository.saveAll(recipe.getIngredients());
-        }*/
+
 
 
 
@@ -36,7 +36,7 @@ public class RecipeServiceImpl implements RecipeService {
         recipeEntity.setNationality(recipeDTO.getNationality());
 
         this.recipeRepository.save(recipeEntity);
-
+*/
         return null;
 
     }
@@ -58,13 +58,13 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Map<String, Integer> getListaCompra(List<RecipeEntity> recipeEntities) {
-        Map<String, Integer> listaCompra = new HashMap<>();
+      /*  Map<String, Integer> listaCompra = new HashMap<>();
         for (RecipeEntity recipeEntity : recipeEntities) {
             for (RecipeHasIngredient ingrediente : recipeEntity.getIngredients()) {
 
                 listaCompra.put(ingrediente.getIngredientEntity().getName(), listaCompra.getOrDefault(ingrediente.getIngredientEntity().getName(), 0) + Integer.parseInt(ingrediente.getCantidad()));
             }
-        }
-        return listaCompra;
+        }*/
+        return null;
     }
 }
