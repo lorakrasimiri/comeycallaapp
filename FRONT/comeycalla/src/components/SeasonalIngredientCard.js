@@ -1,10 +1,10 @@
-// src/components/SeasonalIngredientsCard.js
 import React, { useEffect, useState } from "react";
+import "./css/SeasonalIngredientCardStyle.css";
 
 function SeasonalIngredientsCard() {
-    const [seasonalIngredients, setSeasonalIngredients] = useState([]); // Estado para guardar los ingredientes
-    const [loading, setLoading] = useState(true); // Estado para manejar el cargando
-    const [error, setError] = useState(null); // Estado para manejar errores
+    const [seasonalIngredients, setSeasonalIngredients] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         // Realiza la solicitud al backend
@@ -16,14 +16,14 @@ function SeasonalIngredientsCard() {
                 return response.json();
             })
             .then((data) => {
-                setSeasonalIngredients(data); // Guarda los datos en el estado
-                setLoading(false); // Desactiva el estado de cargando
+                setSeasonalIngredients(data); // Guarda los datos
+                setLoading(false); // Finaliza el estado de carga
             })
             .catch((err) => {
-                setError(err.message); // Guarda el error
-                setLoading(false); // Desactiva el estado de cargando
+                setError(err.message);
+                setLoading(false);
             });
-    }, []); // Ejecuta solo una vez al montar el componente
+    }, []);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -41,7 +41,16 @@ function SeasonalIngredientsCard() {
             ) : (
                 <ul>
                     {seasonalIngredients.map((ingredient) => (
-                        <li key={ingredient.id}>{ingredient.name}</li>
+                        <li key={ingredient.id} className="ingredient-item">
+                            {/* Imagen pequeña */}
+                            <img
+                                src={`https://via.placeholder.com/40?text=${ingredient.name[0]}`}
+                                alt={ingredient.name}
+                                className="ingredient-image"
+                            />
+                            {/* Nombre del ingrediente */}
+                            <span>{ingredient.name}</span>
+                        </li>
                     ))}
                 </ul>
             )}

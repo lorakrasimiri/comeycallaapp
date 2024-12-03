@@ -1,21 +1,7 @@
-// src/pages/CreateRecipe.js
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-import SeasonalIngredientsCard from "../components/SeasonalIngredientCard";
+import SeasonalIngredientsCard from '../components/SeasonalIngredientCard';
 import RecipeCarousel from "../components/RecipeCarousel";
-
-import axios from "axios";
-
-/*const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-        const response = await axios.post("https://api.example.com/recipes", recipe);
-        console.log("Recipe saved:", response.data);
-    } catch (error) {
-        console.error("Error saving recipe:", error);
-    }
-};*/
-
 
 function CreateRecipe() {
     const [recipe, setRecipe] = useState({
@@ -45,6 +31,7 @@ function CreateRecipe() {
         <div>
             <Navbar />
             <div className="create-recipe">
+                <SeasonalIngredientsCard /> {/* Aquí está la tarjeta fija */}
                 <form>
                     <label>Name:</label>
                     <input type="text" name="name" value={recipe.name} onChange={handleChange} />
@@ -66,17 +53,16 @@ function CreateRecipe() {
 
                     <ul>
                         {recipe.ingredients.map((ing, index) => (
-                            <li key={index}>{ing.name} - {ing.quantity}</li>
+                            <li key={index}>
+                                {ing.name} - {ing.quantity}
+                            </li>
                         ))}
                     </ul>
 
                     <button type="submit">Save Recipe</button>
                 </form>
 
-                <aside>
-                    <SeasonalIngredientsCard />
-                    <RecipeCarousel />
-                </aside>
+                <RecipeCarousel />
             </div>
         </div>
     );
