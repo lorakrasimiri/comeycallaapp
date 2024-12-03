@@ -44,11 +44,10 @@ function SeasonalIngredientsCard() {
                         <li key={ingredient.id} className="ingredient-item">
                             {/* Imagen pequeña */}
                             <img
-                                src={`https://via.placeholder.com/40?text=${ingredient.name[0]}`}
+                                src={ ingredient.img }
                                 alt={ingredient.name}
                                 className="ingredient-image"
                             />
-                            {/* Nombre del ingrediente */}
                             <span>{ingredient.name}</span>
                         </li>
                     ))}

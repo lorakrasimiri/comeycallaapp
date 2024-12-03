@@ -21,6 +21,9 @@ public class IngredientEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column
+    private String img;
+
    /* @OneToMany(mappedBy = "ingredientEntity", cascade = CascadeType.ALL)
     private List<RecipeHasIngredient> recipes;*/
 

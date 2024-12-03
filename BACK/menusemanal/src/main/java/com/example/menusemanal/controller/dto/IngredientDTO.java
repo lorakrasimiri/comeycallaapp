@@ -14,5 +14,6 @@ public class IngredientDTO {
     @Id
     private Integer id;
     private String name;
+    private String img;
    // private List<String> seasons;
 }
