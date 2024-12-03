@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Recetas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+</head>
+<body>
+<h1>Recetas</h1>
+<form action="#" th:action="@{/recipes/crear}" th:object="${recipe}" method="post">
+    <input type="text" th:field="*{nombre}" placeholder="Nombre"/>
+    <textarea th:field="*{descripcion}" placeholder="Descripción"></textarea>
+    <input type="number" th:field="*{tiempo}" placeholder="Tiempo"/>
+
+    <h2>Ingredientes</h2>
+    <div id="ingredientes">
+        <div th:each="ingredient, stat : *{ingredientes}">
+            <div>
+                <label>Nombre:</label>
+                <input type="text" th:field="*{ingredientes[__${stat.index}__].nombre}" placeholder="Nombre del ingredient"/>
+            </div>
+            <div>
+                <label>Cantidad:</label>
+                <input type="number" th:field="*{ingredientes[__${stat.index}__].cantidad}" step="any" placeholder="Cantidad"/>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" onclick="agregarIngrediente()">Agregar Ingrediente</button>
+
+    <button type="submit">Guardar Receta</button>
+</form>
+
+<h2>Menú Semanal</h2>
+<div th:each="recipe : ${recipes}">
+    <p th:text="${recipe.nombre}">Nombre de la recipe</p>
+    <p th:text="${recipe.descripcion}">Descripción de la recipe</p>
+</div>
+
+<h2>Lista de la Compra</h2>
+<ul>
+    <li th:each="ingredient, cantidad : ${listaCompra}">
+        <span th:text="${ingredient}"></span>: <span th:text="${cantidad}"></span>
+    </li>
+</ul>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var ingredienteIndex = /*[[${recipe.ingredientes != null ? #lists.size(recipe.ingredientes) : 0}]]*/ 0;
+
+    $(document).ready(function() {
+        // Inicializar select2 para la búsqueda de ingredientes
+        $('#ingredient-buscador').select2({
+            ajax: {
+                url: '/recipes/ingredientes',
+                dataType: 'json',
+                processResults: function(data) {
+                    return {
+                        results: data.map(function(ingredient) {
+                            return {
+                                id: ingredient.id,
+                                text: ingredient.nombre
+                            };
+                        })
+                    };
+                }
+            },
+            tags: true,
+            createTag: function(params) {
+                return {
+                    id: params.term,
+                    text: params.term,
+                    newOption: true
+                };
+            },
+            placeholder: 'Buscar o agregar un ingredient',
+            minimumInputLength: 1
+        }).on('select2:select', function(e) {
+            var data = e.params.data;
+            agregarIngrediente(data.text);
+        });
+    });
+
+    function agregarIngrediente(nombre) {
+        var template =
+            '<div>' +
+            '   <label>Nombre:</label>' +
+            '   <input type="text" name="ingredientes[' + ingredienteIndex + '].nombre" value="' + nombre + '" placeholder="Nombre del ingredient"/>' +
+            '</div>' +
+            '<div>' +
+            '   <label>Cantidad:</label>' +
+            '   <input type="number" name="ingredientes[' + ingredienteIndex + '].cantidad" step="any" placeholder="Cantidad"/>' +
+            '</div>' +
+            '<div>';
+
+        var newIngredient = document.createElement('div');
+        newIngredient.innerHTML = template;
+        document.getElementById('ingredientes').appendChild(newIngredient);
+
+        ingredienteIndex++;
+    }
+    /*]]>*/
+</script>
+
+<select id="ingredient-buscador"></select>
+
+</body>
+</html>
