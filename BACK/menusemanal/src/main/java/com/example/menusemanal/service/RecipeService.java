@@ -14,5 +14,7 @@ public interface RecipeService {
 
      List<RecipeEntity> getRandomRecetas(int count);
 
+     RecipeDTO getRandomRecipe();
+
      Map<String, Integer> getListaCompra(List<RecipeEntity> recipeEntities);
 }

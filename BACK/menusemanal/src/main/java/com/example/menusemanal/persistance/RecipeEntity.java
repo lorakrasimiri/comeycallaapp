@@ -22,7 +22,7 @@ public class RecipeEntity {
     private String description;
     private int time;
     private String nationality;
-    private String photoUrl;
+    private String img;
 
 
     @OneToMany(mappedBy = "recipeEntity", cascade = CascadeType.ALL)

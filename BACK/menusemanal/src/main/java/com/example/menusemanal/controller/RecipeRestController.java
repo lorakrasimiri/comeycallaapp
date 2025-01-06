@@ -68,4 +68,10 @@ public class RecipeRestController {
     }
 
 
+    @GetMapping("/random-recipe")
+    @ResponseBody
+    public ResponseEntity<RecipeDTO> getRandomRecipe() {
+        RecipeDTO recipe = this.recipeService.getRandomRecipe();
+        return ResponseEntity.ok(recipe);
+    }
 }

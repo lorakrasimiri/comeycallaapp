@@ -10,7 +10,7 @@ const PageLayout = ({ children }) => {
                     {/* Contenedor principal de las tarjetas */}
                     <div className="banner-blocks">
                         {/* Tarjeta grande */}
-                        <div className="banner-ad large bg-light block-1 p-4 shadow-sm">
+                        <div className="banner-ad large bg-info block-1 p-4 shadow-sm">
                             {children}
                         </div>
 

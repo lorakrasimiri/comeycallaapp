@@ -20,7 +20,7 @@ public class RecipeDTO {
     private String description;
     private int time;
     private String nationality;
-    private String photoUrl;
+    private String img;
 
     private List<IngredientDTO> ingredients;
 

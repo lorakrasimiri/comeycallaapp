@@ -2,6 +2,7 @@ package com.example.menusemanal.service;
 
 
 import com.example.menusemanal.controller.dto.RecipeDTO;
+import com.example.menusemanal.controller.mapper.RecipeMapper;
 import com.example.menusemanal.persistance.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,8 @@ public class RecipeServiceImpl implements RecipeService {
     @Autowired
     private RecipeHasIngredientRepository recipeHasIngredientRepository;
 
-
+    @Autowired
+    private RecipeMapper recipeMapper;
 
     @Override
     public RecipeDTO create(RecipeDTO recipeDTO) {
@@ -55,6 +57,13 @@ public class RecipeServiceImpl implements RecipeService {
                 .mapToObj(allRecipeEntities::get)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    //TODO AÑADIR ERROR
+    public RecipeDTO getRandomRecipe() {
+        return this.recipeRepository.findRandomRecipe().map(recipeMapper::toDTO).orElse(null);
+    }
+
 
     @Override
     public Map<String, Integer> getListaCompra(List<RecipeEntity> recipeEntities) {
