@@ -4,7 +4,6 @@ import CreateRecipe from "./pages/CreateRecipe";
 import AddIngredients from "./pages/AddIngredient";
 import CreateMenu from "./pages/CreateMenu";
 import Catalog from "./pages/Catalog";
-import './styles.css';
 
 
 function App() {

@@ -1,17 +1,42 @@
-// src/pages/HomePage.js
 import React from "react";
+import PageLayout from "../components/PageLayout";
 import Navbar from "../components/Navbar";
 
-function HomePage() {
+
+const HomePage = () => {
+    // Simulación de una receta sugerida al azar
+    const randomRecipe = {
+        title: "Smoothie de Fresa",
+        image: "/images/smoothie.jpg",
+        ingredients: ["Fresas", "Plátano", "Leche"],
+        instructions:
+            "Mezcla las fresas, el plátano y la leche en una licuadora. Sirve frío.",
+    };
+
     return (
         <div>
             <Navbar />
-            <header className="homepage-header">
-                <h1>Welcome to My Daily Tool</h1>
-                <p>Your personal assistant for creating weekly menus from your favorite recipes!</p>
-            </header>
+            <PageLayout>
+
+                {/* Contenido de la tarjeta grande */}
+                <div>
+                    <h2 className="text-primary">{randomRecipe.title}</h2>
+                    <img
+                        src={randomRecipe.image}
+                        alt={randomRecipe.title}
+                        className="img-fluid rounded mb-3"
+                    />
+                    <h4>Ingredientes:</h4>
+                    <ul>
+                        {randomRecipe.ingredients.map((ingredient, index) => (
+                            <li key={index}>{ingredient}</li>
+                        ))}
+                    </ul>
+                    <h4>Instrucciones:</h4>
+                    <p>{randomRecipe.instructions}</p>
+                </div>
+            </PageLayout>
         </div>
     );
-}
-
+};
 export default HomePage;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-import SeasonalIngredientsCard from '../components/SeasonalIngredientCard';
-import RecipeCarousel from "../components/RecipeCarousel";
+import PageLayout from "../components/PageLayout";
+
 
 function CreateRecipe() {
     const [recipe, setRecipe] = useState({
@@ -30,40 +30,105 @@ function CreateRecipe() {
     return (
         <div>
             <Navbar />
-            <div className="create-recipe">
-                <SeasonalIngredientsCard /> {/* Aquí está la tarjeta fija */}
-                <form>
-                    <label>Name:</label>
-                    <input type="text" name="name" value={recipe.name} onChange={handleChange} />
+            <PageLayout>
+                <div className="create-recipe">
+                    <form>
+                        {/* Campo para el nombre */}
+                        <div className="mb-3">
+                            <label htmlFor="recipeName" className="form-label">
+                                Name:
+                            </label>
+                            <input
+                                type="text"
+                                name="name"
+                                id="recipeName"
+                                className="form-control"
+                                value={recipe.name}
+                                onChange={handleChange}
+                            />
+                        </div>
 
-                    <label>Description:</label>
-                    <textarea name="description" value={recipe.description} onChange={handleChange} />
+                        {/* Campo para la descripción */}
+                        <div className="mb-3">
+                            <label htmlFor="recipeDescription" className="form-label">
+                                Description:
+                            </label>
+                            <textarea
+                                name="description"
+                                id="recipeDescription"
+                                className="form-control"
+                                rows="3"
+                                value={recipe.description}
+                                onChange={handleChange}
+                            ></textarea>
+                        </div>
 
-                    <label>Time (in minutes):</label>
-                    <input type="number" name="time" value={recipe.time} onChange={handleChange} />
+                        {/* Campo para el tiempo */}
+                        <div className="mb-3">
+                            <label htmlFor="recipeTime" className="form-label">
+                                Time (in minutes):
+                            </label>
+                            <input
+                                type="number"
+                                name="time"
+                                id="recipeTime"
+                                className="form-control"
+                                value={recipe.time}
+                                onChange={handleChange}
+                            />
+                        </div>
 
-                    <label>Nationality:</label>
-                    <input type="text" name="nationality" value={recipe.nationality} onChange={handleChange} />
+                        {/* Campo para la nacionalidad */}
+                        <div className="mb-3">
+                            <label htmlFor="recipeNationality" className="form-label">
+                                Nationality:
+                            </label>
+                            <input
+                                type="text"
+                                name="nationality"
+                                id="recipeNationality"
+                                className="form-control"
+                                value={recipe.nationality}
+                                onChange={handleChange}
+                            />
+                        </div>
 
-                    <label>Add Ingredients:</label>
-                    <form onSubmit={handleAddIngredient}>
-                        <input type="text" name="ingredient" placeholder="Ingredient name" />
-                        <button type="submit">Add Ingredient</button>
+                        {/* Subformulario para añadir ingredientes */}
+                        <div className="mb-3">
+                            <label htmlFor="addIngredient" className="form-label">
+                                Add Ingredients:
+                            </label>
+                            <form onSubmit={handleAddIngredient} className="d-flex align-items-center">
+                                <input
+                                    type="text"
+                                    name="ingredient"
+                                    id="addIngredient"
+                                    className="form-control me-2"
+                                    placeholder="Ingredient name"
+                                />
+                                <button type="submit" className="btn btn-secondary">
+                                    Add Ingredient
+                                </button>
+                            </form>
+                        </div>
+
+                        {/* Lista de ingredientes añadidos */}
+                        <ul className="list-group mb-3">
+                            {recipe.ingredients.map((ing, index) => (
+                                <li key={index} className="list-group-item">
+                                    {ing.name} - {ing.quantity}
+                                </li>
+                            ))}
+                        </ul>
+
+                        {/* Botón para guardar la receta */}
+                        <button type="submit" className="btn btn-primary">
+                            Save Recipe
+                        </button>
                     </form>
-
-                    <ul>
-                        {recipe.ingredients.map((ing, index) => (
-                            <li key={index}>
-                                {ing.name} - {ing.quantity}
-                            </li>
-                        ))}
-                    </ul>
-
-                    <button type="submit">Save Recipe</button>
-                </form>
-
-                <RecipeCarousel />
-            </div>
+                </div>
+            </PageLayout>
+            
         </div>
     );
 }
