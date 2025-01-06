@@ -13,7 +13,7 @@
     /* Bordes redondeados */
     padding: 20px;
     /* Espaciado interno */
-    width: 400px;
+    width: 40%;
     /* Define un ancho adecuado */
     max-width: 600px;
     /* Máximo ancho para pantallas más grandes */
@@ -36,9 +36,13 @@
 }
 
 .seasonal-card ul {
+    display: grid;
+    list-style: none;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
     list-style: none;
     padding: 0;
-    text-align: center;
+    margin: 0;
 
 }
 
